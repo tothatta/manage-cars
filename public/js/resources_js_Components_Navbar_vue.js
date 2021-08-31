@@ -11,6 +11,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -48,10 +57,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'Navbar'
+  name: 'Navbar',
+  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
+    loggedIn: function loggedIn(state) {
+      return state.loggedIn;
+    },
+    profile: function profile(state) {
+      return state.profile;
+    },
+    token: function token(state) {
+      return state.token;
+    }
+  })),
+  methods: {
+    isAdmin: function isAdmin() {
+      return this.$store.getters.getProfile === 'admin';
+    },
+    logout: function logout() {
+      var _this = this;
+
+      var that = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/logout", {}, {
+        headers: {
+          Authorization: 'Bearer ' + that.token
+        }
+      }).then(function (response) {
+        if (response.data.status !== 'success') {
+          response.data.messages.forEach(function (message) {
+            _this.errors.push(message);
+          });
+        }
+      });
+      that.$store.commit('logout');
+      sessionStorage.clear();
+      that.$router.push({
+        name: 'login'
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -140,37 +186,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      { staticClass: "navbar navbar-expand-lg navbar-dark bg-dark" },
-      [
-        _c("div", { staticClass: "container-fluid" }, [
-          _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
-            _vm._v("Flottakezelő")
-          ]),
-          _vm._v(" "),
+  return _c(
+    "nav",
+    { staticClass: "navbar navbar-expand-lg navbar-dark bg-dark" },
+    [
+      _c(
+        "div",
+        { staticClass: "container-fluid" },
+        [
           _c(
-            "button",
+            "router-link",
             {
-              staticClass: "navbar-toggler",
-              attrs: {
-                type: "button",
-                "data-bs-toggle": "collapse",
-                "data-bs-target": "#navbarSupportedContent",
-                "aria-controls": "navbarSupportedContent",
-                "aria-expanded": "false",
-                "aria-label": "Toggle navigation"
-              }
+              staticClass: "navbar-brand",
+              attrs: { to: { name: "cars_index" } }
             },
-            [_c("span", { staticClass: "navbar-toggler-icon" })]
+            [_vm._v("Flottakezelő")]
           ),
+          _vm._v(" "),
+          _vm._m(0),
           _vm._v(" "),
           _c(
             "div",
@@ -179,128 +212,134 @@ var staticRenderFns = [
               attrs: { id: "navbarSupportedContent" }
             },
             [
-              _c("ul", { staticClass: "navbar-nav me-auto mb-2 mb-lg-0" }, [
-                _c("li", { staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "nav-link active",
-                      attrs: { "aria-current": "page", href: "#" }
-                    },
-                    [_vm._v("Home")]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-                    _vm._v("Link")
+              _vm.loggedIn
+                ? _c("ul", { staticClass: "navbar-nav me-auto mb-2 mb-lg-0" }, [
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: { name: "cars_index" } }
+                          },
+                          [_vm._v("Gépjárművek listája")]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: { name: "profile" } }
+                          },
+                          [_vm._v("Adataim")]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _vm.isAdmin()
+                      ? _c(
+                          "li",
+                          { staticClass: "nav-item" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "nav-link",
+                                attrs: { to: { name: "users_index" } }
+                              },
+                              [_vm._v("Munkatársak listája")]
+                            )
+                          ],
+                          1
+                        )
+                      : _vm._e()
                   ])
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "nav-link dropdown-toggle",
-                      attrs: {
-                        href: "#",
-                        id: "navbarDropdown",
-                        role: "button",
-                        "data-bs-toggle": "dropdown",
-                        "aria-expanded": "false"
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        Dropdown\n                    "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "ul",
-                    {
-                      staticClass: "dropdown-menu",
-                      attrs: { "aria-labelledby": "navbarDropdown" }
-                    },
-                    [
-                      _c("li", [
+                : _c("ul", { staticClass: "navbar-nav me-auto mb-2 mb-lg-0" }, [
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
                         _c(
-                          "a",
+                          "router-link",
                           {
-                            staticClass: "dropdown-item",
-                            attrs: { href: "#" }
+                            staticClass: "nav-link",
+                            attrs: { to: { name: "login" } }
                           },
-                          [_vm._v("Action")]
+                          [_vm._v("Belépés")]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
                         _c(
-                          "a",
+                          "router-link",
                           {
-                            staticClass: "dropdown-item",
-                            attrs: { href: "#" }
+                            staticClass: "nav-link",
+                            attrs: { to: { name: "register" } }
                           },
-                          [_vm._v("Another action")]
+                          [_vm._v("Regisztráció")]
                         )
-                      ]),
-                      _vm._v(" "),
-                      _c("li", [_c("hr", { staticClass: "dropdown-divider" })]),
-                      _vm._v(" "),
-                      _c("li", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "dropdown-item",
-                            attrs: { href: "#" }
-                          },
-                          [_vm._v("Something else here")]
-                        )
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("li", { staticClass: "nav-item" }, [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "nav-link disabled",
-                      attrs: {
-                        href: "#",
-                        tabindex: "-1",
-                        "aria-disabled": "true"
-                      }
-                    },
-                    [_vm._v("Disabled")]
-                  )
-                ])
-              ]),
+                      ],
+                      1
+                    )
+                  ]),
               _vm._v(" "),
-              _c("form", { staticClass: "d-flex" }, [
-                _c("input", {
-                  staticClass: "form-control me-2",
-                  attrs: {
-                    type: "search",
-                    placeholder: "Search",
-                    "aria-label": "Search"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-success",
-                    attrs: { type: "submit" }
-                  },
-                  [_vm._v("Search")]
-                )
-              ])
+              _vm.loggedIn
+                ? _c("ul", { staticClass: "navbar-nav ms-auto" }, [
+                    _c("li", { staticClass: "nav-item" }, [
+                      _c(
+                        "span",
+                        {
+                          staticClass: "text-white",
+                          attrs: { role: "button" },
+                          on: { click: _vm.logout }
+                        },
+                        [_vm._v("Kilépés")]
+                      )
+                    ])
+                  ])
+                : _vm._e()
             ]
           )
-        ])
-      ]
+        ],
+        1
+      )
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-bs-toggle": "collapse",
+          "data-bs-target": "#navbarSupportedContent",
+          "aria-controls": "navbarSupportedContent",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation"
+        }
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
     )
   }
 ]

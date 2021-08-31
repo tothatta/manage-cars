@@ -1,12 +1,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
+    plugins: [createPersistedState()],
     state: {
         loggedIn: false,
         userId: null,
+        profile: null,
         token: null
     },
     mutations: {
@@ -15,7 +18,7 @@ const store = new Vuex.Store({
             state.loggedIn = true;
             state.userId = payload[0];
             state.token = payload[1];
-            state.resources = payload[2];
+            state.profile = payload[2];
         },
         logout(state){
             state.loggedIn = false;
@@ -33,6 +36,9 @@ const store = new Vuex.Store({
         },
         getToken: state => {
             return state.token;
+        },
+        getProfile: state => {
+            return state.profile;
         }
     }
 });

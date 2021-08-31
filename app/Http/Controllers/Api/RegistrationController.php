@@ -25,11 +25,17 @@ class RegistrationController extends Controller
 
             DB::beginTransaction();
 
-            User::saveNew($request->all());
+            $user = User::saveNew($request->all());
+
+            // Passport Token
+            $token = $user->createToken('PLOT customer token')->accessToken;
 
             DB::commit();
 
-            return $this->__response('success', [], [], 200);
+            return $this->__response('success', [], [
+                'user' => $user,
+                'token'  => $token
+            ], 200);
         } catch (\Exception $e) {
             $this->__log($e);
 

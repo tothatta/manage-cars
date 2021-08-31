@@ -1,6 +1,9 @@
 .auth-container {
   background-color: #f7f6f6;
   padding: 2rem;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   border-radius: 10px;
+  -webkit-box-shadow: 5px 5px 15px 5px lightgrey;
   box-shadow: 5px 5px 15px 5px lightgrey;
 }

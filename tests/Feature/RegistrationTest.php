@@ -18,6 +18,9 @@ class RegistrationTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+
+        \Artisan::call('migrate:fresh --seed');
+        \Artisan::call('passport:install');
     }
 
     /**
@@ -31,9 +34,13 @@ class RegistrationTest extends TestCase
         $response = $this->post('/api/registration', array_merge($data->toArray(), [
             'password'              => $randomPassword,
             'password_confirmation' => $randomPassword,
+            'aszf'                  => 'on'
         ]));
 
         $response->assertOk();
+
+        $user = User::whereEmail($data->email)->first();
+        $this->assertNotEmpty($user);
 
         $this->assertDatabaseHas('users', [
             'email' => $data->email,
@@ -77,7 +84,8 @@ class RegistrationTest extends TestCase
             ['name'],
             ['email'],
             ['phone'],
-            ['password']
+            ['password'],
+            ['aszf']
         ];
     }
 

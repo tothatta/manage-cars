@@ -152,7 +152,8 @@ return [
         'phone'                 => 'telefonszám',
         'password'              => 'jelszó',
         'password_confirmation' => 'jelszó megerősítő',
-        'email'                 => 'email'
+        'email'                 => 'email',
+        'aszf'                  => 'Általános szerződési feltételek'
     ],
 
 ];

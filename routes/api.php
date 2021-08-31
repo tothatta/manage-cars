@@ -15,7 +15,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('registration', 'App\Http\Controllers\Api\RegistrationController@store');
+Route::post('login', 'App\Http\Controllers\Api\LoginController@store')->name('login');
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function() {
+    Route::get('logout', 'App\Http\Controllers\Api\LogoutController@index');
+
+    Route::get('profile', 'App\Http\Controllers\Api\ProfileController@index');
+    Route::post('profile', 'App\Http\Controllers\Api\ProfileController@store');
+
+    //Route::get('cars');
 });
