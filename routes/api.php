@@ -14,6 +14,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('registration', 'App\Http\Controllers\Api\RegistrationController@store');
+Route::post('login', 'App\Http\Controllers\Api\LoginController@store')->name('login');
+
+Route::middleware('auth:api')->group(function() {
+    Route::get('logout', 'App\Http\Controllers\Api\LogoutController@index');
+
+    Route::get('profile', 'App\Http\Controllers\Api\ProfileController@index');
+    Route::post('profile', 'App\Http\Controllers\Api\ProfileController@store');
+
+    Route::get('car-types', 'App\Http\Controllers\Api\CarTypeController@index');
+    Route::get('users', 'App\Http\Controllers\Api\UserController@index');
+    Route::get('users/{id}', 'App\Http\Controllers\Api\UserController@show');
+    Route::put('users/{id}', 'App\Http\Controllers\Api\UserController@update');
+    Route::delete('users/{id}', 'App\Http\Controllers\Api\UserController@destroy');
+
+    Route::get('cars', 'App\Http\Controllers\Api\CarController@index');
+    Route::get('cars/{id}', 'App\Http\Controllers\Api\CarController@show');
+    Route::post('cars', 'App\Http\Controllers\Api\CarController@store');
+    Route::put('cars/{id}', 'App\Http\Controllers\Api\CarController@update');
+    Route::delete('cars/{id}', 'App\Http\Controllers\Api\CarController@destroy');
 });
