@@ -341,7 +341,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "col-12 d-flex justify-content-between align-items-center"
+            "col-12 d-flex justify-content-between align-items-center flex-wrap"
         },
         [
           _c("h1", [_vm._v("Gépjárművek")]),
@@ -492,25 +492,32 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
-          _c("div", { staticClass: "col-12 d-flex justify-content-end mt-3" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary mr-3",
-                on: { click: _vm.getCars }
-              },
-              [_vm._v("Szűrés")]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-default",
-                on: { click: _vm.removeFilters }
-              },
-              [_vm._v("Szűrők törlése")]
-            )
-          ])
+          _c(
+            "div",
+            {
+              staticClass:
+                "col-12 d-flex justify-content-center justify-content-lg-end mt-3"
+            },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mr-3",
+                  on: { click: _vm.getCars }
+                },
+                [_vm._v("Szűrés")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default",
+                  on: { click: _vm.removeFilters }
+                },
+                [_vm._v("Szűrők törlése")]
+              )
+            ]
+          )
         ])
       ])
     ]),

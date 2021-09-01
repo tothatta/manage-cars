@@ -14,7 +14,7 @@ class UserPolicy
      */
     public function index()
     {
-        return auth()->user()->profile === 'admin';
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -22,7 +22,7 @@ class UserPolicy
      */
     public function show()
     {
-        return auth()->user()->profile === 'admin';
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -30,6 +30,14 @@ class UserPolicy
      */
     public function update()
     {
-        return auth()->user()->profile === 'admin';
+        return auth()->user()->isAdmin();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function destroy()
+    {
+        return auth()->user()->isAdmin();
     }
 }

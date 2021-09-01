@@ -136,7 +136,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
         } else {
           for (var error in response.data.messages) {
-            that.$set(that.errors, error, response.data.messages[error]);
+            that.$set(that.errors, error, response.response.data.messages[error]);
           }
         }
       })["catch"](function (errorResponse) {

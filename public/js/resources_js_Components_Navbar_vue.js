@@ -80,7 +80,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       var that = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post("/api/logout", {}, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/logout", {}, {
         headers: {
           Authorization: 'Bearer ' + that.token
         }

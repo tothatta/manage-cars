@@ -112,6 +112,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -142,6 +146,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: {
+    deleteUser: function deleteUser() {
+      var that = this;
+      this.errors = {};
+      axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/api/users/" + that.userId, {
+        headers: {
+          Authorization: 'Bearer ' + that.token
+        }
+      }).then(function (response) {
+        if (response.data.status === 'success') {
+          that.$router.push({
+            name: 'users_index'
+          });
+        } else {
+          for (var error in response.data.messages) {
+            that.$set(that.errors, error, response.data.messages[error]);
+          }
+        }
+      })["catch"](function (errorResponse) {
+        for (var error in errorResponse.response.data.messages) {
+          that.$set(that.errors, error, errorResponse.response.data.messages[error]);
+        }
+      });
+    },
     getUser: function getUser() {
       var that = this;
       this.errors = {};
@@ -306,6 +333,14 @@ var render = function() {
         { staticClass: "col-12 col-lg-8 offset-0 offset-lg-2 box-container" },
         [
           _c("h1", { staticClass: "mb-4" }, [_vm._v("Munkatárs adatai")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mb-3 text-end" }, [
+            _c(
+              "button",
+              { staticClass: "btn btn-danger", on: { click: _vm.deleteUser } },
+              [_vm._v("Munkatárs törlése")]
+            )
+          ]),
           _vm._v(" "),
           _c(
             "form",

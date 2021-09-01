@@ -4,6 +4,10 @@
             <div class="col-12 col-lg-8 offset-0 offset-lg-2 box-container">
                 <h1 class="mb-4">Munkatárs adatai</h1>
 
+                <div class="mb-3 text-end">
+                    <button class="btn btn-danger" @click="deleteUser">Munkatárs törlése</button>
+                </div>
+
                 <form action="" v-on:submit.prevent="submitForm()">
                     <div class="mb-3">
                         <label for="name">Munkatárs neve:</label>
@@ -118,6 +122,29 @@
             }
         },
         methods: {
+            deleteUser() {
+                const that = this;
+                this.errors = {};
+
+                axios.delete("/api/users/" + that.userId, {
+                    headers: {
+                        Authorization: 'Bearer ' + that.token
+                    }
+                })
+                    .then(response => {
+                        if (response.data.status === 'success') {
+                            that.$router.push({ name: 'users_index'});
+                        } else {
+                            for(const error in response.data.messages){
+                                that.$set(that.errors, error, response.data.messages[error]);
+                            }
+                        }
+                    }).catch(errorResponse => {
+                    for(const error in errorResponse.response.data.messages){
+                        that.$set(that.errors, error, errorResponse.response.data.messages[error]);
+                    }
+                })
+            },
             getUser() {
                 const that = this;
                 this.errors = {};

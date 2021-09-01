@@ -27,9 +27,11 @@ Route::middleware('auth:api')->group(function() {
     Route::get('users', 'App\Http\Controllers\Api\UserController@index');
     Route::get('users/{id}', 'App\Http\Controllers\Api\UserController@show');
     Route::put('users/{id}', 'App\Http\Controllers\Api\UserController@update');
+    Route::delete('users/{id}', 'App\Http\Controllers\Api\UserController@destroy');
 
     Route::get('cars', 'App\Http\Controllers\Api\CarController@index');
     Route::get('cars/{id}', 'App\Http\Controllers\Api\CarController@show');
     Route::post('cars', 'App\Http\Controllers\Api\CarController@store');
     Route::put('cars/{id}', 'App\Http\Controllers\Api\CarController@update');
+    Route::delete('cars/{id}', 'App\Http\Controllers\Api\CarController@destroy');
 });

@@ -2,7 +2,11 @@
     <div class="container">
         <div class="row mt-5">
             <div class="col-12 col-lg-6 offset-0 offset-lg-3 box-container">
-                <h1 class="mb-4">Új gépjármű felvitele</h1>
+                <h1 class="mb-4">Gépjármű szerkesztése</h1>
+
+                <div class="mb-3 text-end">
+                    <button class="btn btn-danger" @click="deleteCar">Gépjármű törlése</button>
+                </div>
 
                 <form action="" v-on:submit.prevent="submitForm()">
                     <div class="mb-3">
@@ -100,6 +104,29 @@
             }
         },
         methods: {
+            deleteCar() {
+                const that = this;
+                this.errors = {};
+
+                axios.delete("/api/cars/" + that.carId, {
+                    headers: {
+                        Authorization: 'Bearer ' + that.token
+                    }
+                })
+                    .then(response => {
+                        if (response.data.status === 'success') {
+                            that.$router.push({ name: 'cars_index'});
+                        } else {
+                            for(const error in response.data.messages){
+                                that.$set(that.errors, error, response.data.messages[error]);
+                            }
+                        }
+                    }).catch(errorResponse => {
+                    for(const error in errorResponse.response.data.messages){
+                        that.$set(that.errors, error, errorResponse.response.data.messages[error]);
+                    }
+                })
+            },
             getCar() {
                 const that = this;
                 this.errors = {};

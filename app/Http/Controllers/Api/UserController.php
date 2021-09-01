@@ -108,4 +108,32 @@ class UserController extends Controller
             return $this->__response('', ['message' => $e->getMessage()], [], 500);
         }
     }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function destroy(Request $request, $id)
+    {
+        try {
+            $this->authorize(__FUNCTION__, User::class);
+
+            $user = User::findOrFail($id);
+
+            DB::beginTransaction();
+
+            $user->cars()->delete();
+
+            $user->delete();
+
+            DB::commit();
+
+            return $this->__response('success', [], [], 200);
+        } catch (\Exception $e) {
+            $this->__log($e);
+
+            return $this->__response([], ['message' => $e->getMessage()], [], 500);
+        }
+    }
 }
