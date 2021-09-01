@@ -26,3 +26,5 @@ A feladatban a Backend feladatok ellátását egy Laravel 8+ végzi. A frontende
 pedig egy VueJs 2 javascript rendszer van, amely API-n keresztül kommunikál a backenddel.
 Készültek automatizált tesztek a backend REST API tesztelésére, ezek a php artisan test paranccsal futtathatóak.
 Továbbfejlesztési lehetőség mindenképpen a Jest tesztek megírása, valamint a Design egyedivé tétele. Jelenleg Bootstrap 5 látja el ezt a feladatot, CDN-ről beállítva.
+
+Feladatra fordított idő: 8-9 óra kb.
