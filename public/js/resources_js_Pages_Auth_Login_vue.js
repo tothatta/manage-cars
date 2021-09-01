@@ -77,7 +77,7 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           //Failed to register the user, show errors
           for (var error in response.data.messages) {
-            that.$set(that.errors, error, response.response.data.messages[error]);
+            that.$set(that.errors, error, response.data.messages[error]);
           }
         }
       })["catch"](function (errorResponse) {
@@ -186,7 +186,7 @@ var render = function() {
     _c("div", { staticClass: "row mt-5" }, [
       _c(
         "div",
-        { staticClass: "col-12 col-lg-6 offset-0 offset-lg-3 auth-container" },
+        { staticClass: "col-12 col-lg-6 offset-0 offset-lg-3 box-container" },
         [
           _c("h1", { staticClass: "mb-4" }, [_vm._v("Belépés")]),
           _vm._v(" "),

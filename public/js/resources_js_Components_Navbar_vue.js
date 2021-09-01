@@ -230,22 +230,6 @@ var render = function() {
                       1
                     ),
                     _vm._v(" "),
-                    _c(
-                      "li",
-                      { staticClass: "nav-item" },
-                      [
-                        _c(
-                          "router-link",
-                          {
-                            staticClass: "nav-link",
-                            attrs: { to: { name: "profile" } }
-                          },
-                          [_vm._v("Adataim")]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
                     _vm.isAdmin()
                       ? _c(
                           "li",
@@ -262,7 +246,23 @@ var render = function() {
                           ],
                           1
                         )
-                      : _vm._e()
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      { staticClass: "nav-item" },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: { name: "profile" } }
+                          },
+                          [_vm._v("Adataim")]
+                        )
+                      ],
+                      1
+                    )
                   ])
                 : _c("ul", { staticClass: "navbar-nav me-auto mb-2 mb-lg-0" }, [
                     _c(

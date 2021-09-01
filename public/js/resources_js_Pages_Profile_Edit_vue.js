@@ -83,7 +83,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'register',
+  name: 'profile',
   computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_1__.mapState)({
     loggedIn: function loggedIn(state) {
       return state.loggedIn;
@@ -122,7 +122,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           that.responseStatus = response.data.status;
         } else {
           for (var error in response.data.messages) {
-            that.$set(that.errors, error, response.response.data.messages[error]);
+            that.$set(that.errors, error, response.data.messages[error]);
           }
         }
       })["catch"](function (errorResponse) {
@@ -150,7 +150,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           that.user = response.data.data;
         } else {
           for (var error in response.data.messages) {
-            that.$set(that.errors, error, response.response.data.messages[error]);
+            that.$set(that.errors, error, response.data.messages[error]);
           }
         }
       })["catch"](function (errorResponse) {
@@ -255,7 +255,7 @@ var render = function() {
     _c("div", { staticClass: "row mt-5" }, [
       _c(
         "div",
-        { staticClass: "col-12 col-lg-6 offset-0 offset-lg-3 auth-container" },
+        { staticClass: "col-12 col-lg-6 offset-0 offset-lg-3 box-container" },
         [
           _c("h1", { staticClass: "mb-4" }, [_vm._v("Adataim módosítása")]),
           _vm._v(" "),

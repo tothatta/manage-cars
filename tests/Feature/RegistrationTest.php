@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Mail\UserRegistered;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -31,6 +33,8 @@ class RegistrationTest extends TestCase
         $data = User::factory()->make();
         $randomPassword = Str::random(10);
 
+        Mail::fake();
+
         $response = $this->post('/api/registration', array_merge($data->toArray(), [
             'password'              => $randomPassword,
             'password_confirmation' => $randomPassword,
@@ -38,6 +42,8 @@ class RegistrationTest extends TestCase
         ]));
 
         $response->assertOk();
+
+        Mail::assertSent(UserRegistered::class);
 
         $user = User::whereEmail($data->email)->first();
         $this->assertNotEmpty($user);

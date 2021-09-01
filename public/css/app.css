@@ -1,6 +1,1 @@
-.auth-container {
-  background-color: #f7f6f6;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 5px 5px 15px 5px lightgrey;
-}
+.box-container{background-color:#f7f6f6;border-radius:10px;box-shadow:5px 5px 15px 5px #d3d3d3;padding:2rem}

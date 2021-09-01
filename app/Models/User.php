@@ -22,7 +22,9 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
-        'profile'
+        'profile',
+        'status',
+        'email_verified_at'
     ];
 
     /**
@@ -65,6 +67,38 @@ class User extends Authenticatable
     ];
 
     /**
+     * @var array
+     */
+    protected $appends = [
+        'statusTranslated',
+        'profileTranslated'
+    ];
+
+    /**
+     * @return array|null|string
+     */
+    public function getStatusTranslatedAttribute()
+    {
+        return __('status.' . $this->status);
+    }
+
+    /**
+     * @return array|null|string
+     */
+    public function getProfileTranslatedAttribute()
+    {
+        return __('profile.' . $this->profile);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->profile === 'admin';
+    }
+
+    /**
      * @param $data
      */
     public function updateItem($data)
@@ -74,7 +108,8 @@ class User extends Authenticatable
             'name'              => $data['name'],
             'phone'             => $data['phone'],
             'profile'           => isset($data['profile']) ? $data['profile'] : $this->profile,
-            'password'          => isset($data['password']) ? Hash::make($data['password']) : $this->password
+            'password'          => isset($data['password']) ? Hash::make($data['password']) : $this->password,
+            'status'            => isset($data['status']) ? $data['status'] : $this->status
         ]);
     }
 
@@ -92,6 +127,14 @@ class User extends Authenticatable
             'email_verified_at' => now(),
             'profile'           => isset($data['profile']) ? $data['profile'] : 'user'
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
     }
 
     /**

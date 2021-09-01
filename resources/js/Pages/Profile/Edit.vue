@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row mt-5">
-            <div class="col-12 col-lg-6 offset-0 offset-lg-3 auth-container">
+            <div class="col-12 col-lg-6 offset-0 offset-lg-3 box-container">
                 <h1 class="mb-4">Adataim módosítása</h1>
 
                 <div class="alert alert-success" role="alert" v-if="responseStatus == 'success'">
@@ -63,7 +63,7 @@
     import { mapState } from 'vuex';
 
     export default {
-        name: 'register',
+        name: 'profile',
         computed: {
             ...mapState({
                 loggedIn: state => state.loggedIn,
@@ -100,7 +100,7 @@
                             that.responseStatus = response.data.status;
                         } else {
                             for (const error in response.data.messages) {
-                                that.$set(that.errors, error, response.response.data.messages[error]);
+                                that.$set(that.errors, error, response.data.messages[error]);
                             }
                         }
                     }).catch(errorResponse => {
@@ -130,7 +130,7 @@
                             that.user = response.data.data;
                         } else {
                             for (const error in response.data.messages) {
-                                that.$set(that.errors, error, response.response.data.messages[error]);
+                                that.$set(that.errors, error, response.data.messages[error]);
                             }
                         }
                     })

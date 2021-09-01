@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -31,6 +32,8 @@ class RegistrationController extends Controller
             $token = $user->createToken('PLOT customer token')->accessToken;
 
             DB::commit();
+
+            UserRegistered::dispatch($user);
 
             return $this->__response('success', [], [
                 'user' => $user,

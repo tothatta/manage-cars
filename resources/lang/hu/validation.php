@@ -153,7 +153,16 @@ return [
         'password'              => 'jelszó',
         'password_confirmation' => 'jelszó megerősítő',
         'email'                 => 'email',
-        'aszf'                  => 'Általános szerződési feltételek'
+        'aszf'                  => 'Általános szerződési feltételek',
+        'status'                => 'státusz',
+        'profile'               => 'jogosultsák',
+        'vintage'               => 'évjárat',
+        'type'                  => 'típus',
+        'car_type_id'           => 'típus',
+        'km'                    => 'km óra állás',
+        'user_id'               => 'munkatárs',
+        'user'                  => 'munkatárs',
+        'license'               => 'rendszám'
     ],
 
 ];

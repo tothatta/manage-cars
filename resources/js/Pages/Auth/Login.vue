@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="row mt-5">
-            <div class="col-12 col-lg-6 offset-0 offset-lg-3 auth-container">
+            <div class="col-12 col-lg-6 offset-0 offset-lg-3 box-container">
                 <h1 class="mb-4">Belépés</h1>
 
                 <form action="" v-on:submit.prevent="submitForm()">
@@ -63,7 +63,7 @@
                         } else {
                             //Failed to register the user, show errors
                             for(const error in response.data.messages){
-                                that.$set(that.errors, error, response.response.data.messages[error]);
+                                that.$set(that.errors, error, response.data.messages[error]);
                             }
                         }
                     }).catch(errorResponse => {

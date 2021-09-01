@@ -10,11 +10,11 @@
                     <li class="nav-item">
                         <router-link class="nav-link" :to="{name: 'cars_index'}">Gépjárművek listája</router-link>
                     </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" :to="{name: 'profile'}">Adataim</router-link>
-                    </li>
                     <li class="nav-item" v-if="isAdmin()">
                         <router-link class="nav-link" :to="{name: 'users_index'}">Munkatársak listája</router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link class="nav-link" :to="{name: 'profile'}">Adataim</router-link>
                     </li>
                 </ul>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-else>
@@ -55,7 +55,7 @@
             logout() {
                 const that = this;
 
-                axios.post("/api/logout", {}, {
+                axios.get("/api/logout", {}, {
                     headers: {
                         Authorization: 'Bearer ' + that.token
                     }
